@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { useState } from 'react'
+import { Navbar, ProductDetails, ProductImages, ProductThumbnail } from './components'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [currentImage, setCurrentImage] = useState<number>(0)
+
+	return (
+		<div className='App'>
+			<header>
+				<Navbar />
+			</header>
+
+			<main className='md:wrapper flex flex-col md:flex-row md:items-center'>
+				<div className='flex flex-col items-start gap-6 grow-0 shrink-0 basis-1/2 xl:basis-2/5 md:my-20 lg:mx-10 xl:mx-16'>
+					<ProductImages currentImage={currentImage} setCurrentImage={setCurrentImage} />
+					<ProductThumbnail currentImage={currentImage} setCurrentImage={setCurrentImage} />
+				</div>
+				<ProductDetails />
+			</main>
+		</div>
+	)
 }
 
-export default App;
+export default App
