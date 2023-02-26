@@ -8,6 +8,10 @@ body {
 	font-family: 'Kumbh Sans', sans-serif;
 }
 
+body.fixed {
+	position: fixed;
+}
+
 @responsive {
 	.wrapper {
 		max-width: calc(100vw - 3em);
@@ -15,19 +19,19 @@ body {
 		width: 100%;
 	}
 
-	@media screen and (min-width: 576px) {
+	@screen sm {
 		.wrapper {
 			max-width: calc(100vw - 5em);
 		}
 	}
 
-	@media screen and (min-width: 992px) {
+	@screen lg {
 		.wrapper {
 			max-width: calc(100vw - 10em);
 		}
 	}
 
-	@media screen and (min-width: 1600px) {
+	@screen 2xl {
 		.wrapper {
 			max-width: 1400px;
 		}
@@ -49,22 +53,33 @@ body {
 }
 
 .next-prev-image-button {
-	@apply w-10 h-10 grid place-items-center rounded-full bg-white cursor-pointer;
+	@apply w-10 h-10 grid place-items-center rounded-full bg-white cursor-pointer absolute top-1/2 -translate-y-1/2;
 }
 
 .next-prev-image-button svg {
 	@apply stroke-grayBlue-900 transition duration-300;
 }
 
-.cos2 {
-	/* flex-wrap: wrap; */
-	/* max-height: 100px; */
-	/* overflow: hidden; */
-	/* transform: translateX(calc(calc(25% - 2.5%) * -1)); */
+.product-thumbnail {
+	@apply max-h-32 relative rounded-xl overflow-hidden cursor-pointer grow shrink-0 before:w-full before:h-full before:absolute before:transition before:duration-300 hover:before:bg-primary-pale/75;
+
+	flex-basis: calc(25% - 1rem - 2.5%);
 }
 
-.cos {
-	max-width: 130px;
-	flex: 1 0 calc(25% - 1rem - 2.5%);
-	/* flex: 1 0 calc(20% - 0.5rem); */
+.cart {
+	width: calc(100vw - 1.5em);
+	transform: translate(-50%, calc(100% + 0.75em));
+}
+
+@screen md {
+	.lightbox-controls .prev {
+		@apply left-0 -translate-x-1/2 scale-125;
+	}
+	.lightbox-controls .next {
+		@apply right-0 translate-x-1/2 scale-125;
+	}
+
+	.cart {
+		transform: translate(0, 100%);
+	}
 }

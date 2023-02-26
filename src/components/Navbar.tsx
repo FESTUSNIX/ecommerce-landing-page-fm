@@ -4,16 +4,15 @@ import logo from '../assets/logo.svg'
 import { ReactComponent as CartIcon } from '../assets/icon-cart.svg'
 import avatarImg from '../assets/image-avatar.png'
 import closeIcon from '../assets/icon-close.svg'
+import { Cart } from './Cart'
+import OutsideClickHandler from 'react-outside-click-handler'
 
 export const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
-
-	const outsideClickHandler = (container: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-		if ((container.target as HTMLElement).id === 'mobile-nav') setShowMenu(false)
-	}
+	const [showCart, setShowCart] = useState(false)
 
 	return (
-		<div className='flex items-center justify-between py-4 md:py-6 md:border-b wrapper'>
+		<div className='relative flex items-center justify-between py-4 md:py-6 md:border-b wrapper z-40'>
 			<div className='flex items-end md:items-center'>
 				<img
 					src={iconMenu}
@@ -38,7 +37,11 @@ export const Navbar = () => {
 			</div>
 
 			<div className='flex items-center gap-3 md:gap-6'>
-				<CartIcon className='cursor-pointer fill-grayBlue-700 hover:fill-grayBlue-900 transition duration-300' />
+				<CartIcon
+					className='cursor-pointer fill-grayBlue-700 hover:fill-grayBlue-900 transition duration-300'
+					onClick={() => setShowCart(true)}
+				/>
+
 				<img
 					src={avatarImg}
 					alt='profile'
@@ -52,28 +55,29 @@ export const Navbar = () => {
 				/>
 			</div>
 			{showMenu && (
-				<div
-					className='md:hidden fixed top-0 left-0 w-screen h-screen bg-black/75'
-					onClick={e => outsideClickHandler(e)}
-					id='mobile-nav'>
-					<div className='h-full w-max p-8 bg-white'>
-						<img
-							src={closeIcon}
-							alt='close button'
-							className='p-2 -m-2 cursor-pointer'
-							onClick={() => setShowMenu(false)}
-						/>
+				<div className='md:hidden fixed top-0 left-0 w-screen h-screen bg-black/75'>
+					<OutsideClickHandler onOutsideClick={() => setShowMenu(false)} display='contents'>
+						<div className='h-full w-max p-8 bg-white'>
+							<img
+								src={closeIcon}
+								alt='close button'
+								className='p-2 -m-2 cursor-pointer'
+								onClick={() => setShowMenu(false)}
+							/>
 
-						<div className='w-full flex flex-col gap-4 mt-12 mr-20 mobile-nav-links'>
-							<a href='/collections'>Collections</a>
-							<a href='/men'>Men</a>
-							<a href='/women'>Women</a>
-							<a href='/about'>About</a>
-							<a href='/contact'>Contact</a>
+							<div className='w-full flex flex-col gap-4 mt-12 mr-20 mobile-nav-links'>
+								<a href='/collections'>Collections</a>
+								<a href='/men'>Men</a>
+								<a href='/women'>Women</a>
+								<a href='/about'>About</a>
+								<a href='/contact'>Contact</a>
+							</div>
 						</div>
-					</div>
+					</OutsideClickHandler>
 				</div>
 			)}
+
+			<Cart show={showCart} setShow={setShowCart} />
 		</div>
 	)
 }

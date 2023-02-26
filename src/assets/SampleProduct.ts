@@ -37,14 +37,6 @@ export const product: Product = {
 			thumbnail: thumb3
 		},
 		{
-			image: img3,
-			thumbnail: thumb3
-		},
-		{
-			image: img3,
-			thumbnail: thumb3
-		},
-		{
 			image: img4,
 			thumbnail: thumb4
 		}
