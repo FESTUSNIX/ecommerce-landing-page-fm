@@ -14,7 +14,7 @@ type Props = {
 
 export const Lightbox = ({ currentImage, setCurrentImage, showLightbox, setShowLightbox }: Props) => {
 	useEffect(() => {
-		document.body.classList.toggle('fixed')
+		showLightbox ? document.body.classList.add('fixed') : document.body.classList.remove('fixed')
 	}, [showLightbox])
 
 	if (!showLightbox) return null
