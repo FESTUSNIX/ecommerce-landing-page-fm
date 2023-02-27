@@ -2,7 +2,7 @@
 
 Ecommerce landing page from https://www.frontendmentor.io/
 
-[Live demo.](https://better-react-messenger.web.app/)
+[Live demo.](https://ecommerce-landing-page-fm.vercel.app/)
 
 ## Made with
 

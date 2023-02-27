@@ -5,7 +5,10 @@
 @tailwind utilities;
 
 body {
+	min-width: 100%;
+	min-height: 100%;
 	font-family: 'Kumbh Sans', sans-serif;
+	overflow-x: hidden;
 }
 
 body.fixed {
