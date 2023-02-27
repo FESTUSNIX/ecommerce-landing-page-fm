@@ -8,6 +8,7 @@ import img4 from './image-product-4.jpg'
 import thumb4 from './image-product-4-thumbnail.jpg'
 
 type Product = {
+	id: string
 	name: string
 	brand: string
 	description: string
@@ -17,6 +18,7 @@ type Product = {
 }
 
 export const product: Product = {
+	id: 'fall-limited-edition-sneakers',
 	name: 'Fall Limited Edition Sneakers',
 	brand: 'sneaker company',
 	description:

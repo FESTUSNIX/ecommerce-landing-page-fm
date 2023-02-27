@@ -11,6 +11,18 @@ export const Navbar = () => {
 	const [showMenu, setShowMenu] = useState(false)
 	const [showCart, setShowCart] = useState(false)
 
+	const getProductsQuantity = () => {
+		const items = JSON.parse(localStorage.getItem('cart') || '[]')
+
+		let total = 0
+
+		items?.forEach((item: { id: string; quantity: number }) => (total += item.quantity))
+
+		return total
+	}
+
+	getProductsQuantity()
+
 	return (
 		<div className='relative flex items-center justify-between py-4 md:py-6 md:border-b wrapper z-40'>
 			<div className='flex items-end md:items-center'>
@@ -37,10 +49,17 @@ export const Navbar = () => {
 			</div>
 
 			<div className='flex items-center gap-3 md:gap-6'>
-				<CartIcon
-					className='cursor-pointer fill-grayBlue-700 hover:fill-grayBlue-900 transition duration-300'
-					onClick={() => setShowCart(true)}
-				/>
+				<div className='relative'>
+					<CartIcon
+						className='cursor-pointer fill-grayBlue-700 hover:fill-grayBlue-900 transition duration-300'
+						onClick={() => setShowCart(true)}
+					/>
+					{getProductsQuantity() !== 0 && (
+						<div className='absolute -top-1/2 -right-1/2 font-bold text-xs bg-primary-orange rounded-full px-2'>
+							{getProductsQuantity()}
+						</div>
+					)}
+				</div>
 
 				<img
 					src={avatarImg}

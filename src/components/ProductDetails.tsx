@@ -5,15 +5,38 @@ import { ReactComponent as PlusIcon } from '../assets/icon-plus.svg'
 import { useState } from 'react'
 
 export const ProductDetails = () => {
-	const [itemCount, setItemCount] = useState<number>(0)
+	const [quantity, setQuantity] = useState<number>(1)
 
 	const decreaseItemCount = () => {
-		if (itemCount === 0) return
-		setItemCount(prevItemCount => prevItemCount - 1)
+		if (quantity === 1) return
+		setQuantity(prevItemCount => prevItemCount - 1)
 	}
 
 	const increaseItemCount = () => {
-		setItemCount(prevItemCount => prevItemCount + 1)
+		setQuantity(prevItemCount => prevItemCount + 1)
+	}
+
+	const addToCart = (id: string) => {
+		const newItem = {
+			id: id,
+			quantity: quantity
+		}
+		let cart = [newItem]
+		const cartDocument = JSON.parse(localStorage.getItem('cart')!)
+
+		if (cartDocument?.length) {
+			const index = cartDocument.findIndex((item: { id: string }) => item.id === newItem.id)
+
+			if (index !== -1) {
+				cartDocument[index].quantity += quantity
+
+				cart = [...cartDocument]
+			} else {
+				cart = [...cartDocument, newItem]
+			}
+		}
+
+		localStorage.setItem('cart', JSON.stringify(cart))
 	}
 
 	return (
@@ -56,14 +79,16 @@ export const ProductDetails = () => {
 						<MinusIcon />
 					</button>
 
-					<span className='font-bold'>{itemCount}</span>
+					<span className='font-bold'>{quantity}</span>
 
 					<button className='p-6 fill-primary-orange hover:fill-primary-orange/60' onClick={() => increaseItemCount()}>
 						<PlusIcon />
 					</button>
 				</div>
 
-				<button className='flex items-center justify-center gap-2 p-4 rounded-lg text-white font-bold bg-primary-orange shadow-sm shadow-primary-orange hover:bg-primary-orange/60'>
+				<button
+					className='flex items-center justify-center gap-2 p-4 rounded-lg text-white font-bold bg-primary-orange shadow-sm shadow-primary-orange hover:bg-primary-orange/60'
+					onClick={() => addToCart(product.id)}>
 					<CartIcon className='fill-white' />
 					<span>Add to cart</span>
 				</button>
