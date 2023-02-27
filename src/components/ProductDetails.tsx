@@ -47,7 +47,7 @@ export const ProductDetails = () => {
 
 			<p className='text-grayBlue-700 mb-6'>{product.description}</p>
 
-			<div className='flex items-center justify-between mb-4'>
+			<div className='flex items-center justify-between md:items-start md:flex-col mb-4'>
 				{product.discount ? (
 					<>
 						<div className='flex items-center gap-4'>
@@ -62,9 +62,9 @@ export const ProductDetails = () => {
 							</span>
 						</div>
 
-						<p className='line-through text-grayBlue-500 font-bold'>
+						<span className='line-through text-grayBlue-500 font-bold'>
 							{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}
-						</p>
+						</span>
 					</>
 				) : (
 					<p className='text-3xl font-bold text-grayBlue-900'>
@@ -73,13 +73,13 @@ export const ProductDetails = () => {
 				)}
 			</div>
 
-			<div className='flex flex-col gap-4'>
-				<div className='w-full flex items-center justify-between rounded-lg bg-grayBlue-100'>
+			<div className='flex flex-col md:flex-row gap-4'>
+				<div className='w-full md:w-auto flex items-center justify-between rounded-lg bg-grayBlue-100'>
 					<button className='p-6 fill-primary-orange hover:fill-primary-orange/60' onClick={() => decreaseItemCount()}>
 						<MinusIcon />
 					</button>
 
-					<span className='font-bold'>{quantity}</span>
+					<span className='font-bold px-6'>{quantity}</span>
 
 					<button className='p-6 fill-primary-orange hover:fill-primary-orange/60' onClick={() => increaseItemCount()}>
 						<PlusIcon />
@@ -87,7 +87,7 @@ export const ProductDetails = () => {
 				</div>
 
 				<button
-					className='flex items-center justify-center gap-2 p-4 rounded-lg text-white font-bold bg-primary-orange shadow-sm shadow-primary-orange hover:bg-primary-orange/60'
+					className='min-w-max grow flex items-center justify-center gap-2 py-4 px-16 rounded-lg text-white font-bold bg-primary-orange shadow-sm shadow-primary-orange hover:bg-primary-orange/60'
 					onClick={() => addToCart(product.id)}>
 					<CartIcon className='fill-white' />
 					<span>Add to cart</span>
